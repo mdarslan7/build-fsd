@@ -13,3 +13,12 @@ function onDo(data) {
 }
 
 verifyPromise().then(onDo);
+
+
+let x = new Promise((resolve) => {
+    resolve("From Inside Promise!");
+});
+
+x.then((data) => {
+    console.log(data);
+});
