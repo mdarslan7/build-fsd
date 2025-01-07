@@ -27,13 +27,13 @@ const ALL_USERS = [
 function userExists(username, password) {
   // write logic to return true or false if this user exists
   // in ALL_USERS array
-  for(let i=0; i<ALL_USERS.length; i++) {
-    if(ALL_USERS[i].username == username && ALL_USERS[i].password == password) {
-      return true;
-    }
-  }
-
-  return false;
+  // for(let i=0; i<ALL_USERS.length; i++) {
+  //   if(ALL_USERS[i].username == username && ALL_USERS[i].password == password) {
+  //     return true;
+  //   }
+  // }
+  const user = ALL_USERS.find((user) => user.username == username && user.password == password);
+  return user !== undefined;
 }
 
 app.post("/signin", function (req, res) {
@@ -59,13 +59,9 @@ app.get("/users", function (req, res) {
     // console.log(decoded);
     const username = decoded.username;
     // return a list of users other than this username
-    const nonMatchingUsers = [];
-    for(let i=0; i<ALL_USERS.length; i++) {
-      if(ALL_USERS[i].username != username) {
-        nonMatchingUsers.push(ALL_USERS[i]);
-      }
-    }
-    res.status(200).json({usernames: nonMatchingUsers});
+    res.status(200).json({
+      users: ALL_USERS.filter((user) => user.username !== username)
+    })
   } catch (err) {
     return res.status(403).json({
       msg: "Invalid token",
