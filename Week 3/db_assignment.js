@@ -75,13 +75,13 @@ app.post("/signup", async (req, res) => {
   }
 });
 
-app.get("/users", function (req, res) {
+app.get("/users", async function (req, res) {
   const token = req.headers.authorization;
   try {
     const decoded = jwt.verify(token, jwtPassword);
     const username = decoded.username;
     // return a list of users other than this username from the database
-    const users = User.find({username: {$ne: username}});
+    const users = await User.find({username: {$ne: username}});
     res.status(200).json(users);
   } catch (err) {
     return res.status(403).json({
