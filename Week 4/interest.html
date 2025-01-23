@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Simple Interest</title>
+  </head>
+
+  <script>
+    async function calculateInterest() {
+      let p = document.getElementById("ip1").value;
+      let r = document.getElementById("ip2").value;
+      let t = document.getElementById("ip3").value;
+      const response = await fetch(
+        "http://localhost:3000/interest" + "?p=" + p + "&r=" + r + "&t=" + t
+      );
+      const data = await response.json();
+      document.getElementById(
+        "interest"
+      ).textContent = `Simple Interest: ${data.interest}`;
+      document.getElementById(
+        "amount"
+      ).textContent = `Total Amount: ${data.amount}`;
+    }
+  </script>
+  <body>
+    <input type="text" id="ip1" placeholder="Enter principal amount" /> <br />
+    <input type="text" id="ip2" placeholder="Enter rate of interest" /> <br />
+    <input type="text" id="ip3" placeholder="Enter time period" /> <br />
+    <button onclick="calculateInterest()">
+      Calculate Simple Interest & Amount
+    </button>
+    <br />
+    <div id="interest"></div>
+    <div id="amount"></div>
+  </body>
+</html>

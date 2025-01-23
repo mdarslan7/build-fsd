@@ -17,8 +17,9 @@ app.get("/interest", (req, res) => {
     const rate = parseInt(req.query.r);
     const time = parseInt(req.query.t);
     const interest = (principal * rate * time) / 100;
+    // console.log(principal, rate, time, interest);
     const amount = principal + interest;
-    res.send({
+    res.json({
         interest: interest,
         amount: amount
     })
