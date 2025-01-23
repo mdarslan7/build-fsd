@@ -14,6 +14,15 @@
     //     document.getElementById('ans').innerHTML = `The sum of ${ip1} and ${ip2} is ${sum}`;
     // }
 
+    //implement debouncing
+    let timeout;
+    function debounceCalculateSum() {
+        clearTimeout(timeout);
+        timeout = setTimeout(() => {
+            calculateSum();
+        }, 100);
+    }
+
     //using fetch
     async function calculateSum() {
         let ip1 = document.getElementById('ip1').value;
@@ -21,13 +30,13 @@
         const data = await fetch("http://localhost:3000/sum" + "?a=" + ip1 + "&b=" + ip2);
         console.log("http://localhost:3000/sum?" + "?ip1=" + ip1 + "&ip2=" + ip2);
         const value = await data.text();
-        document.getElementById('ans').innerHTML = value;
+        document.getElementById('ans').textContent = value;
     }
 </script>
 <body>
-    <input type="text" id="ip1" placeholder="Enter first number"> <br>
-    <input type="text" id="ip2" placeholder="Enter second number"> <br>
-    <button onclick="calculateSum()">Calculate Sum</button> <br>
+    <input oninput="debounceCalculateSum()" type="text" id="ip1" placeholder="Enter first number"> <br>
+    <input oninput="debounceCalculateSum()" type="text" id="ip2" placeholder="Enter second number"> <br>
+    <!-- <button onclick="calculateSum()">Calculate Sum</button> <br> -->
     <p id="ans"></p>
 </body>
 </html>
