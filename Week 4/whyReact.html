@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>why react?</title>
+  </head>
+  <body>
+    <input type="text" id="title" placeholder="Enter title" /> <br />
+    <input type="text" id="description" placeholder="Enter description" />
+    <br />
+    <div id="container"></div>
+    <br />
+  </body>
+
+  <script>
+    function createChild(title, description, id) {
+      const parent = document.createElement("div");
+      parent.setAttribute("id", id);
+      const childTitle = document.createElement("div");
+      childTitle.innerHTML = title;
+      const childDescription = document.createElement("div");
+      childDescription.innerHTML = description;
+      const childButton = document.createElement("button");
+      childButton.innerHTML = "Mark As Done";
+      childButton.setAttribute("onclick", `markAsDone(${parent.id})`);
+
+      //append the child elements to the parent element
+      parent.appendChild(childTitle);
+      parent.appendChild(childDescription);
+      parent.appendChild(childButton);
+
+      return parent;
+    }
+
+    function updateAccToState(state) {
+      for (let i = 0; i < state.length; i++) {
+        const child = createChild(
+          state[i].title,
+          state[i].description,
+          state[i].id
+        );
+        document.getElementById("container").appendChild(child);
+      }
+    }
+
+    window.onload = () => {
+      updateAccToState([
+        { title: "title1", description: "description1", id: 1 },
+        { title: "title2", description: "description2", id: 2 },
+        { title: "title3", description: "description3", id: 3 },
+      ]);
+    };
+  </script>
+</html>
