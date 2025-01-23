@@ -1,0 +1,47 @@
+<!-- this ugly to-do list implementation is to stress upon the fact that why was React created and is used so much -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DOM</title>
+</head>
+
+<script>
+    let idCount = 1;
+    
+    function markAsDone(id) {
+        let parent = document.getElementById(id);
+        parent.children[2].innerHTML = 'Done';
+    }
+    function addTodo() {
+        const title = document.getElementById('title');
+        const description = document.getElementById('description');
+        const parent = document.createElement('div');
+        parent.setAttribute('id', idCount++);
+        const childTitle = document.createElement('div');
+        childTitle.innerHTML = title.value;
+        const childDescription = document.createElement('div');
+        childDescription.innerHTML = description.value;
+        const childButton = document.createElement('button');
+        childButton.innerHTML = 'Mark As Done';
+        childButton.setAttribute('onclick', `markAsDone(${parent.id})`);
+        
+        //append the child elements to the parent element
+        parent.appendChild(childTitle);
+        parent.appendChild(childDescription);
+        parent.appendChild(childButton);
+
+        //finally append the parent element to the container
+        document.getElementById('container').appendChild(parent);
+    }
+</script>
+
+<body>
+    <input type="text" id="title" placeholder="Enter title"> <br>
+    <input type="text" id="description" placeholder="Enter description"> <br>
+    <button onclick="addTodo()">Add ToDo</button> <br>
+    <div id="container"></div>
+</body>
+</html>
